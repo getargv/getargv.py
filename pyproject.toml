@@ -1,0 +1,32 @@
+[build-system]
+requires = [
+"setuptools >= 40.9.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "getargv"
+version = "0.1"
+authors = [
+  { name="Camden Narzt", email="getargv@narzt.cam" },
+]
+description = "Python bindings to libgetargv, a library to correctly and quickly get other process's args"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+  'Development Status :: 3 - Alpha',
+  'Environment :: Console',
+  'Environment :: MacOS X',
+  'Intended Audience :: Developers',
+  'Intended Audience :: Information Technology',
+  'Intended Audience :: System Administrators',
+  'License :: OSI Approved :: BSD License',
+  'Operating System :: MacOS :: MacOS X',
+  'Programming Language :: Python',
+  'Programming Language :: C',
+  'Programming Language :: Python :: Implementation :: CPython',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/getargv/getargv.py"
+"Bug Tracker" = "https://github.com/getargv/getargv.py/issues"

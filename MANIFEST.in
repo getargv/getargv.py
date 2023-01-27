@@ -1,0 +1,5 @@
+include getargvmodule.c
+include setup.py
+include LICENSE.txt
+include README.md
+include logo.svg
