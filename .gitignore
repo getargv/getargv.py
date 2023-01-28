@@ -1,8 +1,9 @@
 compile_commands.json
-/build
 .cache
 /bin
 /lib
 pyvenv.cfg
 /MANIFEST
 /dist
+/src/getargv/build
+/src/getargv.egg-info

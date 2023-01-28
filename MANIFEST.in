@@ -1,5 +1,4 @@
-include getargvmodule.c
-include setup.py
-include LICENSE.txt
+recursive-include src/getargv *
+recursive-exclude src/getargv/build *
 include README.md
-include logo.svg
+include LICENSE.txt
