@@ -1,4 +1,5 @@
 recursive-include src/getargv *
+exclude src/getargv/compile_commands.json
 recursive-exclude src/getargv/build *
 include README.md
 include LICENSE.txt
