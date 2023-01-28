@@ -13,6 +13,7 @@ authors = [
 description = "Python bindings to libgetargv, a library to correctly and quickly get other process's args"
 readme = "README.md"
 requires-python = ">=3.7"
+license = {file = "LICENSE.txt"}
 classifiers = [
   'Development Status :: 3 - Alpha',
   'Environment :: Console',
@@ -28,5 +29,7 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/getargv/getargv.py"
-"Bug Tracker" = "https://github.com/getargv/getargv.py/issues"
+"Source" = "https://github.com/getargv/getargv.py"
+"Bug Reports" = "https://github.com/getargv/getargv.py/issues"
+"Homepage" = "https://getargv.narzt.cam"
+"Funding" = "https://github.com/sponsors/CamJN"
