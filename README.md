@@ -2,7 +2,11 @@
 
 [![Python](https://github.com/getargv/getargv.py/actions/workflows/main.yml/badge.svg)](https://github.com/getargv/getargv.py/actions/workflows/main.yml)
 
-This module allows you to query the arguments of other processes on macOS.
+This module uses libgetargv to obtain binary string representations of the arguments of other processes on macOS.
+
+## Motivation
+
+On macOS you must use the KERN_PROCARGS2 sysctl to obtain other proc's args, however the returned representation is badly documented and a naive approach doesn't deal with leading empty args. libgetargv parses the results of the sysctl correctly, and this module provides Python bindings to libgetargv.
 
 ## Installation
 

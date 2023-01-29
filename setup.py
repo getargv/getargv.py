@@ -63,7 +63,6 @@ You can install the CLT with `xcode-select --install`, which is much smaller tha
 
 package_name = 'getargv'
 kw = pkgconfig(package_name)
-
 kw['include_dirs'].append(platform_prefix('include', package_name))
 kw['include_dirs'].append('{}/Library/Frameworks/Python3.framework/Headers'.format(dev_path))
 kw['library_dirs'].append(platform_prefix('lib', package_name))
@@ -71,35 +70,4 @@ kw['libraries'].append(package_name)
 
 environ["MACOSX_DEPLOYMENT_TARGET"] = get_macos_target(kw['library_dirs'],package_name)
 
-module = Extension(package_name, sources = ['src/getargv/getargvmodule.c'], **kw)
-
-setup(name = 'Getargv',
-      version = '0.1',
-      ext_modules = [ module ],
-      author = 'Camden Narzt',
-      author_email = 'getargv@narzt.cam',
-      url = 'https://getargv.narzt.cam/',
-      license = 'BSD-3-Clause',
-      platforms = [ 'darwin' ],
-      classifiers = [
-          'Development Status :: 3 - Alpha',
-          'Environment :: Console',
-          'Environment :: MacOS X',
-          'Intended Audience :: Developers',
-          'Intended Audience :: Information Technology',
-          'Intended Audience :: System Administrators',
-          'License :: OSI Approved :: BSD License',
-          'Operating System :: MacOS :: MacOS X',
-          'Programming Language :: Python',
-          'Programming Language :: C',
-          'Programming Language :: Python :: Implementation :: CPython'
-      ],
-      description = "Python bindings to libgetargv, a library to correctly and quickly get other process's args",
-      long_description = '''
-This module uses libgetargv to obtain binary string representations of the arguments of other processes on macOS.
-
-On macOS you must use the KERN_PROCARGS2 sysctl to obtain other proc's args,
-however the returned representation is badly documented and a naive approach
-doesn't deal with leading empty args. libgetargv parses the results of the
-sysctl correctly, and this module provides Python bindings to libgetargv.
-''')
+setup(ext_modules = [ Extension( package_name, sources = ['src/getargv/getargvmodule.c'], **kw) ])
