@@ -8,7 +8,7 @@ import subprocess
 
 # debug by setting DISTUTILS_DEBUG env var in shell to anything
 
-assert platform == "darwin":
+assert platform == "darwin"
 
 encoding = 'UTF-8'
 
