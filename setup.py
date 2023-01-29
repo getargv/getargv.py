@@ -8,8 +8,7 @@ import subprocess
 
 # debug by setting DISTUTILS_DEBUG env var in shell to anything
 
-if platform != "darwin":
-    raise Error("This module can only be used on macOS")
+assert platform == "darwin":
 
 encoding = 'UTF-8'
 
