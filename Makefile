@@ -12,8 +12,14 @@ upload-test: build
 build:
 	python -m build
 
+build-sdist:
+	python -m build --sdist
+
 sign:
 	gpg --detach-sign -a dist/*.tar.gz
+
+check:
+	python setup.py check
 
 build-local:
 	python setup.py build

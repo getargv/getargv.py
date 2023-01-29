@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 from distutils.ccompiler import new_compiler
 from platform import processor
 from sys import platform

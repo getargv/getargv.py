@@ -7,3 +7,4 @@ MANIFEST
 dist
 build
 /src/getargv.egg-info
+*.egg-info
