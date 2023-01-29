@@ -4,3 +4,4 @@ include src/getargv/__init__.py
 include README.md
 include LICENSE.txt
 include setup.py
+exclude src/getargv/compile_commands.json
