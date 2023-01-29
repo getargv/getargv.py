@@ -5,6 +5,10 @@ from sys import platform
 from sysconfig import get_config_var
 from os import environ, path
 import subprocess
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 
 # debug by setting DISTUTILS_DEBUG env var in shell to anything
 
@@ -69,4 +73,25 @@ kw['libraries'].append(package_name)
 
 environ["MACOSX_DEPLOYMENT_TARGET"] = get_macos_target(kw['library_dirs'],package_name)
 
-setup(ext_modules = [ Extension( package_name, sources = ['src/getargv/getargvmodule.c'], **kw) ])
+with open("pyproject.toml", mode="rb") as fp:
+    project = tomllib.load(fp)['project']
+    config = project.copy()
+    for k in project.keys():
+        if k == 'authors':
+            author = config[k][0]
+            config['author'] = author['name']
+            config['author_email'] = author['email']
+            del config[k]
+        if k == 'urls':
+            config['url'] = config[k]['Homepage']
+            del config[k]
+        if k == 'license':
+            with open(config[k]['file'], mode="r", encoding="utf-8") as l:
+                config[k] = l.read().splitlines().pop()
+        if k in ['readme', 'requires-python']:
+            del config[k]
+
+setup(
+    ext_modules = [ Extension( package_name, sources = ['src/getargv/getargvmodule.c'], **kw) ],
+    **config
+)
