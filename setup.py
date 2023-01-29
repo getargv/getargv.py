@@ -91,7 +91,8 @@ with open("pyproject.toml", mode="rb") as fp:
         if k in ['readme', 'requires-python']:
             del config[k]
 
-setup(
-    ext_modules = [ Extension( package_name, sources = ['src/getargv/getargvmodule.c'], **kw) ],
-    **config
-)
+if __name__ == "__main__":
+    setup(
+        ext_modules = [ Extension( package_name+".getargv", sources = ['src/getargv/getargvmodule.c'], **kw) ],
+        **config
+    )

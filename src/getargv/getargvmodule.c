@@ -144,5 +144,10 @@ PyMODINIT_FUNC PyInit_getargv(void) {
     return NULL;
   }
 
+  if (PyModule_AddStringConstant(m, "__version__", "0.1") < 0) {
+    Py_DECREF(m);
+    return NULL;
+  }
+
   return m;
 }

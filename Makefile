@@ -1,4 +1,4 @@
-.PHONY: activate upload-test upload-production build-local build test
+.PHONY: activate upload-test upload-production build-local build-sdist build test clean sign check load
 
 activate:
 	@echo run this: source bin/activate
@@ -27,3 +27,12 @@ build-local:
 
 test:
 	python tests/testgetargv.py
+
+clean:
+	rm -rf build dist getargv.egg-info src/getargv.egg-info MANIFEST
+
+load: build-local
+	python -i src/getargv/load.py
+
+devel:
+	pip install --editable .
