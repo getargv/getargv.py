@@ -121,10 +121,6 @@ Functions:\n\
 \n\
     as_bytes(pid, skip, nuls) -> bytes\n\
     as_list(pid) -> [bytes]\n\
-\n\
-Misc variables:\n\
-\n\
-    __version__\n\
 ",
     -1, // size of per-interpreter state of the module, or -1 if the module keeps state in global variables.
     GetargvMethods};
@@ -140,11 +136,6 @@ PyMODINIT_FUNC PyInit_getargv(void) {
   if (PyModule_AddObject(m, "error", GetargvError) < 0) {
     Py_XDECREF(GetargvError);
     Py_CLEAR(GetargvError);
-    Py_DECREF(m);
-    return NULL;
-  }
-
-  if (PyModule_AddStringConstant(m, "__version__", "0.1") < 0) {
     Py_DECREF(m);
     return NULL;
   }
