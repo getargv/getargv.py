@@ -3,7 +3,7 @@ compile_commands.json
 /bin
 /lib
 pyvenv.cfg
-/MANIFEST
-/dist
-/src/getargv/build
+MANIFEST
+dist
+build
 /src/getargv.egg-info

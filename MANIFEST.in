@@ -1,6 +1,6 @@
 # https://packaging.python.org/en/latest/guides/using-manifest-in/
-recursive-include src/getargv *
-exclude src/getargv/compile_commands.json
-recursive-exclude src/getargv/build *
+include src/getargv/getargvmodule.c
+include src/getargv/__init__.py
 include README.md
 include LICENSE.txt
+include setup.py

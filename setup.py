@@ -1,11 +1,27 @@
 from distutils.core import setup, Extension
+from distutils.ccompiler import new_compiler
 from platform import processor
 from sys import platform
+from sysconfig import get_config_var
 from os import environ, path
 import subprocess
 
+# debug by setting DISTUTILS_DEBUG env var in shell to anything
+
 if platform != "darwin":
     raise Error("This module can only be used on macOS")
+
+encoding = 'UTF-8'
+
+def get_macos_target(lib_dirs, lib_name):
+    default = get_config_var('MACOSX_DEPLOYMENT_TARGET')
+    compiler = new_compiler()
+    lib_file = compiler.find_library_file(lib_dirs,lib_name)
+    try:
+        output = subprocess.check_output('vtool -show-build {}'.format(lib_file), shell=True)
+        return next((l for l in output.splitlines() if b'minos' in l), default).split().pop().decode(encoding,errors='ignore')
+    except subprocess.CalledProcessError:
+        return default
 
 def homebrew_prefix(inpath, package):
     if processor() == 'arm':
@@ -31,19 +47,31 @@ def platform_prefix(inpath, package):
 def pkgconfig(package):
     kw = {}
     flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
-    output = subprocess.getoutput('pkg-config --cflags --libs {}'.format(package))
-    for token in output.strip().split():
-        kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
-    return kw
+    try:
+        output = subprocess.check_output('pkg-config --cflags --libs {}'.format(package),shell=True)
+        for token in output.strip().split():
+            kw.setdefault(flag_map.get(token[:2].decode(encoding,errors='ignore')), []).append(token[2:].decode(encoding))
+    finally:
+        return kw
+
+try:
+    dev_path = subprocess.check_output('xcode-select -p',shell=True).strip().decode(encoding,errors='ignore')
+except:
+    raise Exception('''You must have either the CLT or Xcode installed to build extensions.
+You can install the CLT with `xcode-select --install`, which is much smaller than the full Xcode.
+''')
 
 package_name = 'getargv'
 kw = pkgconfig(package_name)
+
 kw['include_dirs'].append(platform_prefix('include', package_name))
+kw['include_dirs'].append('{}/Library/Frameworks/Python3.framework/Headers'.format(dev_path))
 kw['library_dirs'].append(platform_prefix('lib', package_name))
 kw['libraries'].append(package_name)
-kw['extra_compile_args']=['-iwithsysroot{}/Library/Frameworks/Python3.framework/Headers'.format(subprocess.getoutput('xcode-select -p'))]
 
-module = Extension(package_name, sources = ['getargvmodule.c'], **kw)
+environ["MACOSX_DEPLOYMENT_TARGET"] = get_macos_target(kw['library_dirs'],package_name)
+
+module = Extension(package_name, sources = ['src/getargv/getargvmodule.c'], **kw)
 
 setup(name = 'Getargv',
       version = '0.1',
@@ -53,7 +81,6 @@ setup(name = 'Getargv',
       url = 'https://getargv.narzt.cam/',
       license = 'BSD-3-Clause',
       platforms = [ 'darwin' ],
-      python_requires=">=3.3",
       classifiers = [
           'Development Status :: 3 - Alpha',
           'Environment :: Console',
