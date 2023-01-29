@@ -1,0 +1,43 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python package
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: getargv/getargv
+        path: getargv
+        token: ${{ secrets.GH_PAT }}
+    - uses: actions/checkout@v3
+      with:
+        path: getargv.py
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+        check-latest: true
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+    - name: Build
+      run: |
+        python -m build
+        python -m pip install --editable .
+      working-directory: getargv.py
+    - name: Test
+      run: python tests/testgetargv.py
+      working-directory: getargv.py
