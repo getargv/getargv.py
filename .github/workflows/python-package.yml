@@ -23,6 +23,9 @@ jobs:
         repository: getargv/getargv
         path: getargv
         token: ${{ secrets.GH_PAT }}
+    - name: Build libgetargv
+      run: make install_dylib
+      working-directory: getargv
     - uses: actions/checkout@v3
       with:
         path: getargv.py
