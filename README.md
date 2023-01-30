@@ -1,6 +1,6 @@
 <h1><img src="logo.svg" width="200" alt="getargv"></h1>
 
-[![Python](https://github.com/getargv/getargv.py/actions/workflows/main.yml/badge.svg)](https://github.com/getargv/getargv.py/actions/workflows/main.yml)
+[![Python package](https://github.com/getargv/getargv.py/actions/workflows/python-package.yml/badge.svg)](https://github.com/getargv/getargv.py/actions/workflows/python-package.yml)
 
 This module uses libgetargv to obtain binary string representations of the arguments of other processes on macOS.
 
