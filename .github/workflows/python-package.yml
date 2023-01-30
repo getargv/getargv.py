@@ -41,7 +41,7 @@ jobs:
     - name: Build
       run: |
         python -m build
-        python -m pip install --editable .
+        python -m pip install dist/getargv-*.tar.gz
       working-directory: getargv.py
     - name: Test
       run: python tests/testgetargv.py
