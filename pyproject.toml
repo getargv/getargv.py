@@ -11,6 +11,9 @@ version = "0.3"
 authors = [
   { name="Camden Narzt", email="getargv@narzt.cam" },
 ]
+dependencies=[
+"importlib_metadata; python_version<'3.8'",
+]
 description = "Python bindings to libgetargv, a library to correctly and quickly get other process's args"
 readme = "README.md"
 requires-python = ">=3.7"

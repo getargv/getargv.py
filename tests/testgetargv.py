@@ -29,6 +29,8 @@ class TestGetargv(unittest.TestCase):
         expected = bytes(' '.join(expected)+'\0','utf-8')
         self.assertEqual(actual, expected)
 
+    def test_has_version(self):
+        self.assertTrue(hasattr(getargv, '__version__'))
 
 if __name__ == '__main__':
     unittest.main()
