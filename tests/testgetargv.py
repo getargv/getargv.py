@@ -17,7 +17,11 @@ class TestGetargv(unittest.TestCase):
 
     def tearDown(self):
         if not self._outcome.result.wasSuccessful():
-            print("\n\n\n", "framework: "+sys._framework, "executable: "+sys.executable, "\n\n\n", sep="\n")
+            print("\n\n\n",
+                  "framework: "+sys._framework,
+                  "executable: "+sys.executable,
+                  "base_exec_prefix: "+sys.base_exec_prefix,
+                  "\n\n\n", sep="\n")
 
     def test_as_list(self):
         actual = getargv.as_list(getpid())
