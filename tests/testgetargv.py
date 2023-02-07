@@ -5,7 +5,10 @@ import sys
 
 def expected_args(make_bytes=False):
     expected = sys.argv.copy()
-    expected.insert(0, sys.base_exec_prefix+'/Resources/Python.app/Contents/MacOS/Python')
+    if sys._framework == '' or sys._framework is None:
+        expected.insert(0, sys.executable)
+    else:
+        expected.insert(0, sys.base_exec_prefix+'/Resources/Python.app/Contents/MacOS/Python')
     if make_bytes:
         expected = list(map(lambda s: bytes(s,'utf-8'),expected))
     return expected
@@ -18,7 +21,7 @@ class TestGetargv(unittest.TestCase):
         try:
             self.assertEqual(actual, expected)
         except:
-            print("\n\n\n",self,sys.argv, sys._framework, sys.base_exec_prefix, sys.base_prefix, sys.exec_prefix, sys.prefix, sys.executable, sys._base_executable, sys.exc_info(), "\n\n\n", sep="\n")
+            print("\n\n\n", self, sys._framework, sys.executable, "\n\n\n", sep="\n")
             raise
 
     def test_as_bytes_with_nuls(self):
@@ -28,7 +31,7 @@ class TestGetargv(unittest.TestCase):
         try:
             self.assertEqual(actual, expected)
         except:
-            print("\n\n\n",self,sys.argv, sys._framework, sys.base_exec_prefix, sys.base_prefix, sys.exec_prefix, sys.prefix, sys.executable, sys._base_executable, sys.exc_info(), "\n\n\n", sep="\n")
+            print("\n\n\n", self, sys._framework, sys.executable, "\n\n\n", sep="\n")
             raise
 
     def test_as_bytes_with_spaces(self):
@@ -38,7 +41,7 @@ class TestGetargv(unittest.TestCase):
         try:
             self.assertEqual(actual, expected)
         except:
-            print("\n\n\n",self,sys.argv, sys._framework, sys.base_exec_prefix, sys.base_prefix, sys.exec_prefix, sys.prefix, sys.executable, sys._base_executable, sys.exc_info(), "\n\n\n", sep="\n")
+            print("\n\n\n", self, sys._framework, sys.executable, "\n\n\n", sep="\n")
             raise
 
     def test_has_version(self):
