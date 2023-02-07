@@ -121,8 +121,12 @@ Functions:\n\
 \n\
     as_bytes(pid, skip, nuls) -> bytes\n\
     as_list(pid) -> [bytes]\n\
+\n\
+Misc variables:\n\
+\n\
+    __version__\n\
 ",
-    -1, // size of per-interpreter state of the module, or -1 if the module keeps state in global variables.
+    -1, // size of per-interpreter state of the module, or -1 if the module keeps state in global variables. (our GetargvError is a global veriable I think, though that might just be the definition).
     GetargvMethods};
 
 PyMODINIT_FUNC PyInit_getargv(void) {

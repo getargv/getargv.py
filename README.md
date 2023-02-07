@@ -27,11 +27,11 @@ getargv.as_list(os.getpid()) #=> [b'arg0',b'arg1']
 
 After checking out the repo, run `python setup.py build`. Then run `python setup.py install`. Then, run `python test.py` to run the tests. You can also run `python -i load.py` for an interactive prompt that will allow you to experiment. Python code goes in the file `src/getargv/__init__.py`, C code goes in the file `src/getargv/getargvmodule.c`.
 
-To install this module onto your local machine, run `python setup.py build && python setup.py install`. To release a new version, update the version number in `setup.py`, and then run `RELEASE_COMMAND_HERE`, which will create a git tag for the version, push git commits and the created tag, and push the `.module` file to [pypi.org](https://pypi.org).
+To install this module onto your local machine, run `python setup.py build && python setup.py install`. To release a new version, update the version number in `pyproject.toml`, and then run `make upload-production`, which will create a git tag for the version, push git commits and the created tag, and push the `.whl` file to [pypi.org](https://pypi.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/getargv/getargv_python.
+Bug reports and pull requests are welcome on GitHub at https://github.com/getargv/getargv.py.
 
 ## License
 

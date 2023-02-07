@@ -10,6 +10,8 @@ def is_venv():
 def is_framework():
     return not not sys._framework
 
+# For more docs on organizing tests into suites and using parameters read:https://docs.python.org/3/library/unittest.html#organizing-tests
+
 class TestGetargv(unittest.TestCase):
 
     def setUp(self):
