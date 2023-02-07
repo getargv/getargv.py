@@ -9,12 +9,12 @@ version:
 	@echo $(version)
 
 upload-production: build sign
-	python -m twine upload --repository pypi dist/*
+	python -m twine upload --repository pypi dist/*$(version)*
 	git tag --sign $(version) -m $(version)
 	git push origin $(version)
 
 upload-test: build
-	python -m twine upload --repository testpypi dist/*
+	python -m twine upload --repository testpypi dist/*$(version)*
 
 build:
 	python -m build
