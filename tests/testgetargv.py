@@ -4,6 +4,9 @@ import unittest
 import sys
 from pathlib import PurePosixPath
 
+def is_venv():
+    return (hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix))
+
 def is_framework():
     return not not sys._framework
 
