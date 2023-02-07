@@ -15,19 +15,31 @@ class TestGetargv(unittest.TestCase):
     def test_as_list(self):
         actual = getargv.as_list(os.getpid())
         expected = expected_args(True)
-        self.assertEqual(actual, expected)
+        try:
+            self.assertEqual(actual, expected)
+        except:
+            print("\n\n\n",self,sys.argv, sys._framework, sys.base_exec_prefix, sys.base_prefix, sys.exec_prefix, sys.prefix, sys.executable, sys._base_executable, sys.exc_info(), "\n\n\n", sep="\n")
+            raise
 
     def test_as_bytes_with_nuls(self):
         actual = getargv.as_bytes(os.getpid())
         expected = expected_args()
         expected = bytes('\0'.join(expected)+'\0','utf-8')
-        self.assertEqual(actual, expected)
+        try:
+            self.assertEqual(actual, expected)
+        except:
+            print("\n\n\n",self,sys.argv, sys._framework, sys.base_exec_prefix, sys.base_prefix, sys.exec_prefix, sys.prefix, sys.executable, sys._base_executable, sys.exc_info(), "\n\n\n", sep="\n")
+            raise
 
     def test_as_bytes_with_spaces(self):
         actual = getargv.as_bytes(os.getpid(),0,True)
         expected = expected_args()
         expected = bytes(' '.join(expected)+'\0','utf-8')
-        self.assertEqual(actual, expected)
+        try:
+            self.assertEqual(actual, expected)
+        except:
+            print("\n\n\n",self,sys.argv, sys._framework, sys.base_exec_prefix, sys.base_prefix, sys.exec_prefix, sys.prefix, sys.executable, sys._base_executable, sys.exc_info(), "\n\n\n", sep="\n")
+            raise
 
     def test_has_version(self):
         self.assertTrue(hasattr(getargv, '__version__'))
