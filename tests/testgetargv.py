@@ -4,14 +4,19 @@ import unittest
 import sys
 from pathlib import PurePosixPath
 
+def is_framework():
+    return not not sys._framework
+
 class TestGetargv(unittest.TestCase):
 
     def setUp(self):
         # This is SOOOO very hacky, and fragile, and barely works on 2 systems,
-        # probably not a good idea but I don't know how to get the info correctly
+        # probably not a good idea but I don't know how to get the info correctly and it seems to differ by venv/framework/plain maybe even virtualenv or other factors
         self.expected = sys.argv.copy()
-        if sys._framework:
-            self.expected.insert(0, sys.base_exec_prefix+'/Resources/Python.app/Contents/MacOS/Python')
+        if is_framework():
+            self.expected.insert(0, PurePosixPath(sys.base_exec_prefix).joinpath('Resources/Python.app/Contents/MacOS/Python').__str__())
+        elif is_venv():
+            self.expected.insert(0, sys.executable)
         else:
             self.expected.insert(0, PurePosixPath(sys.executable).name)
 
