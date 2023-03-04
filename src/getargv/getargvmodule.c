@@ -33,7 +33,7 @@ static PyObject *getargv_as_bytes(PyObject *self, PyObject *args) {
 
   PyObject *s = Py_BuildValue("y#", result.start_pointer,
                               result.end_pointer - result.start_pointer + 1);
-  free(result.buffer);
+  free_ArgvResult(&result);
 
   return s; // handles s == NULL implicitly
 }
@@ -72,8 +72,7 @@ static PyObject *getargv_as_list(PyObject *self, PyObject *args) {
     }
   }
 
-  free(result.argv);
-  free(result.buffer);
+  free_ArgvArgcResult(&result);
 
   return lst; // handles lst == NULL implicitly
 }
