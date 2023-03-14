@@ -9,3 +9,4 @@ build
 /src/getargv.egg-info
 *.egg-info
 /src/getargv/getargv.cpython-*-darwin.so
+/getargv.html

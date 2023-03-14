@@ -1,6 +1,6 @@
 version := $(shell python -c 'import tomli; print(tomli.load(open("pyproject.toml", mode="rb"))["project"]["version"])')
 
-.PHONY: activate upload-test upload-production build-sdist build test clean sign check load devel
+.PHONY: activate upload-test upload-production build-sdist build test clean sign check load devel docs
 
 activate:
 	@echo run this: source bin/activate
@@ -39,3 +39,8 @@ load:
 
 devel:
 	pip install --editable .
+
+getargv.html:
+	python -m pydoc -w getargv
+
+docs: getargv.html
