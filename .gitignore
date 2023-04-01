@@ -1,0 +1,11 @@
+compile_commands.json
+.cache
+/bin
+/lib
+pyvenv.cfg
+MANIFEST
+dist
+build
+/src/getargv.egg-info
+*.egg-info
+/src/getargv/getargv.cpython-*-darwin.so
