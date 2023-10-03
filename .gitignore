@@ -9,3 +9,4 @@ build
 *.egg-info
 *getargv.cpython-*-darwin.so
 getargv.html
+/pyrightconfig.json

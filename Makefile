@@ -33,6 +33,10 @@ sign:
 check:
 	python setup.py check
 
+types:
+	pyright --verifytypes getargv
+	pyright
+
 test: devel
 	python tests/testgetargv.py
 
