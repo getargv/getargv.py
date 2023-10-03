@@ -85,14 +85,17 @@ with open("pyproject.toml", mode="rb") as fp:
         if k == 'urls':
             config['url'] = config[k]['Homepage']
             del config[k]
+        if k == 'dependencies':
+            config['install_requires'] = config[k]
+            del config[k]
         if k == 'license':
             with open(config[k]['file'], mode="r", encoding="utf-8") as l:
-                config[k] = l.read().splitlines().pop()
+                config[k] = l.read().splitlines()[0]
         if k in ['readme', 'requires-python']:
             del config[k]
 
 if __name__ == "__main__":
     setup(
-        ext_modules = [ Extension( package_name+".getargv", sources = ['src/getargv/getargvmodule.c'], **kw) ],
+        ext_modules = [ Extension( "_getargv", sources = ['src/getargv/_getargvmodule.c'], **kw) ],
         **config
     )

@@ -83,7 +83,7 @@ static PyMethodDef GetargvMethods[] = {
 \n\
             Parameters:\n\
                     pid (int): An integer PID\n\
-                    skip (uint): How many leading arguments to skip past\n\
+                    skip (int): How many leading arguments to skip past\n\
                     nuls (bool): Whether to convert nuls to spaces for human readability\n\
 \n\
             Returns:\n\
@@ -97,14 +97,14 @@ static PyMethodDef GetargvMethods[] = {
                     pid (int): An integer PID\n\
 \n\
             Returns:\n\
-                    args ([bytes]): List of the PID's args as binary strings\n\
+                    args (list[bytes]): List of the PID's args as binary strings\n\
 "},
     {NULL, NULL, 0, NULL} /* Sentinel */
 };
 
-static struct PyModuleDef getargvmodule = {
+static struct PyModuleDef _getargvmodule = {
     PyModuleDef_HEAD_INIT,
-    "getargv", /* name of module */
+    "_getargv", /* name of module */
     "Obtain binary string representations of the arguments of other PIDs.\n\
 \n\
 On macOS you must use the KERN_PROCARGS2 sysctl to obtain other procs' args,\n\
@@ -119,22 +119,18 @@ Classes:\n\
 Functions:\n\
 \n\
     as_bytes(pid, skip, nuls) -> bytes\n\
-    as_list(pid) -> [bytes]\n\
-\n\
-Misc variables:\n\
-\n\
-    __version__\n\
+    as_list(pid) -> list[bytes]\n\
 ",
-    -1, // size of per-interpreter state of the module, or -1 if the module keeps state in global variables. (our GetargvError is a global veriable I think, though that might just be the definition).
+    -1, // size of per-interpreter state of the module, or -1 if the module keeps state in global variables. (our GetargvError is a global variable I think, though that might just be the definition).
     GetargvMethods};
 
-PyMODINIT_FUNC PyInit_getargv(void) {
-  PyObject *m = PyModule_Create(&getargvmodule);
+PyMODINIT_FUNC PyInit__getargv(void) {
+  PyObject *m = PyModule_Create(&_getargvmodule);
 
   if (m == NULL)
     return NULL;
 
-  GetargvError = PyErr_NewException("getargv.error", NULL, NULL);
+  GetargvError = PyErr_NewException("_getargv.error", NULL, NULL);
   Py_XINCREF(GetargvError);
   if (PyModule_AddObject(m, "error", GetargvError) < 0) {
     Py_XDECREF(GetargvError);
