@@ -23,13 +23,13 @@ Misc variables:
     __version__ The package version
 """
 
-from sys import platform, version_info
-if version_info >= (3, 8):
+import sys
+if sys.version_info >= (3, 8):
     from importlib import metadata
 else:
     import importlib_metadata as metadata
 
-if platform != 'darwin':
+if sys.platform != 'darwin':
     from warnings import warn
     warn("only macOS is supported")
 

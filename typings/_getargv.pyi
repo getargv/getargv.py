@@ -1,1 +1,0 @@
-../src/getargv/_getargv.pyi

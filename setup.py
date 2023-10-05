@@ -1,19 +1,19 @@
 from setuptools import setup, Extension
 from distutils.ccompiler import new_compiler
 from platform import processor
-from sys import platform, version_info
 from sysconfig import get_config_var
 from os import environ, path
 from typing import Any, TypedDict, Literal, cast, Union
 import subprocess
-if version_info >= (3, 11):
+import sys
+if sys.version_info >= (3, 11):
     import tomllib
 else:
     import tomli as tomllib
 
 # debug by setting DISTUTILS_DEBUG env var in shell to anything
 
-assert platform == "darwin"
+assert sys.platform == "darwin"
 
 encoding:str = 'UTF-8'
 
