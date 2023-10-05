@@ -3,7 +3,6 @@ include src/getargv/_getargvmodule.c
 include src/getargv/__init__.pyi
 include src/getargv/__init__.py
 include src/getargv/py.typed
-include src/getargv/_getargv.pyi
 include README.md
 include LICENSE.txt
 include setup.py

@@ -1,9 +1,15 @@
-version := $(shell python -c 'import tomli; print(tomli.load(open("pyproject.toml", mode="rb"))["project"]["version"])')
+version := $(shell awk '/version = /{print $3}' pyproject.toml | tr -d '"')
 
-.PHONY: activate db version upload-production upload-test build build-sdist sign check test clean console load devel docs
+.PHONY: activate deps db version upload-production upload-test build build-sdist sign check test clean console load devel docs
 
 activate:
 	@echo run this: source bin/activate
+
+deactivate:
+	@echo run this: deactivate
+
+deps:
+	pip install build
 
 db: compile_commands.json
 
@@ -41,7 +47,7 @@ test: devel
 	python tests/testgetargv.py
 
 clean:
-	rm -rf build dist getargv.egg-info src/getargv.egg-info MANIFEST src/_getargv.cpython-*-darwin.so
+	rm -rf build dist getargv.egg-info src/getargv.egg-info MANIFEST src/_getargv.cpython-*-darwin.so .cache .mypy_cache getargv.html
 
 console load: devel
 	python -ic 'import getargv'
