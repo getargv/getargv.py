@@ -24,6 +24,7 @@ Misc variables:
 """
 
 import sys
+from typing import List
 if sys.version_info >= (3, 8):
     from importlib import metadata
 else:
@@ -52,7 +53,7 @@ def as_string(pid: int, encoding: str, skip: int = 0, nuls: bool = False) -> str
     """
     return as_bytes(pid, skip, nuls).decode(encoding)
 
-def as_string_list(pid: int, encoding: str) -> list[str]:
+def as_string_list(pid: int, encoding: str) -> List[str]:
     """Returns the arguments of a pid as an list of strings decoded using specified encoding.
 
             Parameters:
