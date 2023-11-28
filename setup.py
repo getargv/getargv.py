@@ -3,7 +3,7 @@ from distutils.ccompiler import new_compiler
 from platform import processor
 from sysconfig import get_config_var
 from os import environ, path
-from typing import Any, TypedDict, Literal, cast, Union
+from typing import Any, TypedDict, Literal, cast, Union, List, Dict
 import subprocess
 import sys
 if sys.version_info >= (3, 11):
@@ -17,7 +17,7 @@ assert sys.platform == "darwin"
 
 encoding:str = 'UTF-8'
 
-def get_macos_target(lib_dirs:list[str], lib_name:str)->str:
+def get_macos_target(lib_dirs:List[str], lib_name:str)->str:
     default = get_config_var('MACOSX_DEPLOYMENT_TARGET')
     compiler = new_compiler()
     lib_file = compiler.find_library_file(lib_dirs,lib_name)
@@ -49,9 +49,9 @@ def platform_prefix(inpath:str, package:str)->str:
         return (environ.get("PREFIX") or "/").join(inpath)
 
 class Params(TypedDict):
-    libraries: list[str]
-    include_dirs: list[str]
-    library_dirs: list[str]
+    libraries: List[str]
+    include_dirs: List[str]
+    library_dirs: List[str]
 
 def pkgconfig(package:str)-> Params:
     kw: Params = {'include_dirs':[], 'library_dirs':[], 'libraries':[]}
@@ -82,11 +82,11 @@ kw['libraries'].append(package_name)
 environ["MACOSX_DEPLOYMENT_TARGET"] = get_macos_target(kw['library_dirs'],package_name)
 
 with open("pyproject.toml", mode="rb") as fp:
-    project: dict[str, Any] = tomllib.load(fp)['project']
-    config: dict[str, Any] = project.copy()
+    project: Dict[str, Any] = tomllib.load(fp)['project']
+    config: Dict[str, Any] = project.copy()
     for k in project.keys():
         if k == 'authors':
-            author: dict[str, str] = config[k][0]
+            author: Dict[str, str] = config[k][0]
             config['author'] = author['name']
             config['author_email'] = author['email']
             del config[k]
