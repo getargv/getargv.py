@@ -61,8 +61,8 @@ jobs:
       with:
         name: ${{ matrix.os }}.zip
         path: |
-          dist/*.whl
-          dist/*.tar.gz
+          getargv.py/dist/*.whl
+          getargv.py/dist/*.tar.gz
 
   release:
     if: ${{ github.ref_type == 'tag' }}
