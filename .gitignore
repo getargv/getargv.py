@@ -2,10 +2,10 @@ compile_commands.json
 .cache
 /bin
 /lib
+/dist
+/build
 pyvenv.cfg
 MANIFEST
-dist
-build
 *.egg-info
 *getargv.cpython-*-darwin.so
 getargv.html

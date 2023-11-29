@@ -45,7 +45,7 @@ jobs:
     - name: Upgrade pip & Install deps
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install build
+        python3 -m pip install build pyright
     - name: Build
       run: |
         python3 -m build
@@ -54,12 +54,15 @@ jobs:
     - name: Test
       run: python3 tests/testgetargv.py
       working-directory: getargv.py
+    - name: Types Test
+      run: pyright --verifytypes getargv
+      working-directory: getargv.py
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.os }}.zip
         path: |
-          dist/*.whl
-          dist/*.tar.gz
+          getargv.py/dist/*.whl
+          getargv.py/dist/*.tar.gz
 
   release:
     if: ${{ github.ref_type == 'tag' }}

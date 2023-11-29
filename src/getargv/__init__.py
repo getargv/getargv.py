@@ -24,6 +24,7 @@ Misc variables:
 """
 
 import sys
+from typing import List
 if sys.version_info >= (3, 8):
     from importlib import metadata
 else:
@@ -33,10 +34,12 @@ if sys.platform != 'darwin':
     from warnings import warn
     warn("only macOS is supported")
 
-from _getargv import *
-__version__ = metadata.version('getargv')
+from _getargv import as_bytes, as_list
 
-def as_string(pid, encoding, skip = 0, nuls = False):
+# pyright: reportUnknownMemberType=false
+__version__: str = metadata.version('getargv')
+
+def as_string(pid: int, encoding: str, skip: int = 0, nuls: bool = False) -> str:
     """Returns the arguments of a pid as a string decoded using specified encoding.
 
             Parameters:
@@ -50,7 +53,7 @@ def as_string(pid, encoding, skip = 0, nuls = False):
     """
     return as_bytes(pid, skip, nuls).decode(encoding)
 
-def as_string_list(pid, encoding):
+def as_string_list(pid: int, encoding: str) -> List[str]:
     """Returns the arguments of a pid as an list of strings decoded using specified encoding.
 
             Parameters:
