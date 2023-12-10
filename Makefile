@@ -1,4 +1,4 @@
-version := $(shell awk '/version = /{print $3}' pyproject.toml | tr -d '"')
+version := $(shell awk '/version = /{print $$3}' pyproject.toml | tr -d '"')
 
 .PHONY: activate deps db version upload-production upload-test build build-sdist sign check test clean console load devel docs
 
