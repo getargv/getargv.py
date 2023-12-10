@@ -1,4 +1,5 @@
 version := $(shell awk '/version = /{print $$3}' pyproject.toml | tr -d '"')
+new_version := $(shell echo $(version) | awk -F . '{OFS="."; $$NF+=1; print}')
 
 .PHONY: activate deps db version upload-production upload-test build build-sdist sign check test clean console load devel docs
 
@@ -15,6 +16,9 @@ db: compile_commands.json
 
 compile_commands.json:
 	bear -- python setup.py build
+
+bump_version:
+	sed -e 's/version = "$(version)"/version = "$(new_version)"/' -i '' pyproject.toml
 
 version:
 	@echo $(version)
