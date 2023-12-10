@@ -6,6 +6,7 @@ name: Python package
 on:
   push:
     branches: [ "main" ]
+    tags: [ '*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -82,12 +83,13 @@ jobs:
     # hopefully this dep is enough to only run on release
     needs: [ release ]
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/getargv/
     permissions:
       # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
     steps:
     - uses: actions/download-artifact@v3
-      with:
-        path: dist
-    - name: Publish package distributions to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+    - run: mv *.zip/dist ./
+    - uses: pypa/gh-action-pypi-publish@release/v1
