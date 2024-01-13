@@ -26,7 +26,7 @@ jobs:
           - "system"
          # see supported python release schedule at https://devguide.python.org/versions/
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         repository: getargv/getargv
         path: getargv
@@ -34,7 +34,7 @@ jobs:
     - name: Build libgetargv
       run: make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: getargv.py
     - name: Set up Python ${{ matrix.python-version }}
