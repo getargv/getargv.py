@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "getargv"
-version = "0.10"
+version = "0.11"
 authors = [
   { name="Camden Narzt", email="getargv@narzt.cam" },
 ]
