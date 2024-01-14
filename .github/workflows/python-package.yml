@@ -126,6 +126,5 @@ jobs:
       id-token: write
     steps:
     - uses: actions/download-artifact@v3
-    - run: ls -R
-    - run: mv dist.zip/dist ./
+    - run: mv dist.zip/* ./
     - uses: pypa/gh-action-pypi-publish@release/v1
