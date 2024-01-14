@@ -58,26 +58,59 @@ jobs:
     - name: Types Test
       run: pyright --verifytypes getargv
       working-directory: getargv.py
-    - uses: actions/upload-artifact@v3
-      with:
-        name: ${{ matrix.os }}.zip
-        path: |
-          getargv.py/dist/*.whl
-          getargv.py/dist/*.tar.gz
 
   release:
-    if: ${{ github.ref_type == 'tag' }}
     needs: [ build ]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    permissions:
+      contents: write
     steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/checkout@v4
       with:
-        path: dist
+        repository: getargv/getargv
+        path: getargv
+        token: ${{ secrets.GH_PAT }}
+    - name: Build libgetargv
+      run: make install_dylib
+      working-directory: getargv
+    - uses: actions/checkout@v4
+      with:
+        path: getargv.py
+    - name: Set up Python 3
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+        check-latest: true
+    - name: Upgrade pip & Install deps
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install build pyright
+    - name: Bump version
+      id: bump_version
+      run: |
+        make bump_version
+        echo "new_version=$(make version)" >> $GITHUB_OUTPUT
+    - name: Build & install
+      run: |
+        python3 -m build
+        python3 -m pip install dist/getargv-*.tar.gz
+      working-directory: getargv.py
+    - uses: actions/upload-artifact@v3
+      with:
+        name: dist.zip
+        path: getargv.py/dist
+    - name: create && push tag
+      run: |
+        git commit -am 'release ${{ steps.bump_version.outputs.new_version }}'
+        git tag '${{ steps.bump_version.outputs.new_version }}'
+        git push origin tag '${{ steps.bump_version.outputs.new_version }}'
+        git push origin HEAD:main
+      working-directory: getargv.py
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/*.zip/*
-        name: ${{ github.ref_name }}
+        files: getargv.py/dist/*
+        name: ${{ steps.bump_version.outputs.new_version }}
 
   pypi-publish:
     # hopefully this dep is enough to only run on release
@@ -91,5 +124,5 @@ jobs:
       id-token: write
     steps:
     - uses: actions/download-artifact@v3
-    - run: mv *.zip/dist ./
+    - run: mv dist.zip/dist ./
     - uses: pypa/gh-action-pypi-publish@release/v1
