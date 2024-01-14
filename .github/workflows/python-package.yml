@@ -98,7 +98,7 @@ jobs:
       working-directory: getargv.py
     - uses: actions/upload-artifact@v3
       with:
-        name: dist.zip
+        name: dist
         path: getargv.py/dist
     - name: create && push tag
       run: |
@@ -126,5 +126,4 @@ jobs:
       id-token: write
     steps:
     - uses: actions/download-artifact@v3
-    - run: mv dist.zip/* ./
     - uses: pypa/gh-action-pypi-publish@release/v1
