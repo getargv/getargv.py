@@ -90,6 +90,7 @@ jobs:
       run: |
         make bump_version
         echo "new_version=$(make version)" >> $GITHUB_OUTPUT
+      working-directory: getargv.py
     - name: Build & install
       run: |
         python3 -m build
