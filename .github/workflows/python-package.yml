@@ -112,6 +112,7 @@ jobs:
       with:
         files: getargv.py/dist/*
         name: ${{ steps.bump_version.outputs.new_version }}
+        tag_name: ${{ steps.bump_version.outputs.new_version }}
 
   pypi-publish:
     # hopefully this dep is enough to only run on release
