@@ -6,7 +6,6 @@ name: Python package
 on:
   push:
     branches: [ "main" ]
-    tags: [ '*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -115,7 +114,6 @@ jobs:
         tag_name: ${{ steps.bump_version.outputs.new_version }}
 
   pypi-publish:
-    # hopefully this dep is enough to only run on release
     needs: [ release ]
     runs-on: ubuntu-latest
     environment:
