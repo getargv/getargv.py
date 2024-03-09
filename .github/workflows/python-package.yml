@@ -37,7 +37,7 @@ jobs:
       with:
         path: getargv.py
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       if: ${{ matrix.python-version != 'system' }}
       with:
         python-version: ${{ matrix.python-version }}
@@ -76,7 +76,7 @@ jobs:
       with:
         path: getargv.py
     - name: Set up Python 3
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.x
         check-latest: true
@@ -95,7 +95,7 @@ jobs:
         python3 -m build
         python3 -m pip install dist/getargv-*.tar.gz
       working-directory: getargv.py
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: dist
         path: getargv.py/dist
@@ -107,7 +107,7 @@ jobs:
         git push origin HEAD:main
       working-directory: getargv.py
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: getargv.py/dist/*
         name: ${{ steps.bump_version.outputs.new_version }}
@@ -123,5 +123,5 @@ jobs:
       # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
     steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
     - uses: pypa/gh-action-pypi-publish@release/v1
