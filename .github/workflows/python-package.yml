@@ -46,7 +46,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
         check-latest: true
     - name: Set up Python ${{ matrix.python-version }}
-      run: echo "PATH=/usr/bin:$PATH" >> $GITHUB_ENV
+      run: echo "PATH=/usr/bin:`/usr/bin/python3 -m site --user-base`/bin:$PATH" >> $GITHUB_ENV
       if: ${{ matrix.python-version == 'system' }}
     - name: Upgrade pip & Install deps
       run: |
