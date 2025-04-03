@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-  "setuptools>=61.0",
+  "setuptools>=77.0",
   "tomli>=2.0.1; python_version<'3.11'",
 ]
 build-backend = "setuptools.build_meta"
@@ -11,13 +11,10 @@ version = "0.13"
 authors = [
   { name="Camden Narzt", email="getargv@narzt.cam" },
 ]
-dependencies=[
-  "importlib_metadata; python_version<'3.8'",
-]
 description = "Python bindings to libgetargv, a library to correctly and quickly get other process's args"
 readme = "README.md"
-requires-python = ">=3.7"
-license = {file = "LICENSE.txt"}
+requires-python = ">=3.9"
+license-files = [ "LICENSE.txt" ]
 classifiers = [
   'Development Status :: 3 - Alpha',
   'Environment :: Console',
@@ -25,7 +22,6 @@ classifiers = [
   'Intended Audience :: Developers',
   'Intended Audience :: Information Technology',
   'Intended Audience :: System Administrators',
-  'License :: OSI Approved :: BSD License',
   'Operating System :: MacOS :: MacOS X',
   'Programming Language :: Python',
   'Programming Language :: C',

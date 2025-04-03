@@ -96,10 +96,7 @@ with open("pyproject.toml", mode="rb") as fp:
         if k == 'dependencies':
             config['install_requires'] = config[k]
             del config[k]
-        if k == 'license':
-            with open(config[k]['file'], mode="r", encoding="utf-8") as l:
-                config[k] = l.read().splitlines()[0]
-        if k in ['readme', 'requires-python']:
+        if k in ['readme', 'requires-python', 'license-files']:
             del config[k]
 
 if __name__ == "__main__":
