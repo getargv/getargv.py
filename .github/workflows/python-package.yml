@@ -16,16 +16,15 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - "3.9"  # EOL: 2025-10
           - "3.10" # EOL: 2026-10
           - "3.11" # EOL: 2027-10
           - "3.12" # EOL: 2028-10
           - "3.13" # EOL: 2029-10
-          #- "3.14" # REL: 2025-10-01
+          - "3.14" # EOL: 2030-10
           - "system"
          # see supported python release schedule at https://devguide.python.org/versions/
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         repository: getargv/getargv
         path: getargv
@@ -36,11 +35,11 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         path: getargv.py
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       if: ${{ matrix.python-version != 'system' }}
       with:
         python-version: ${{ matrix.python-version }}
@@ -70,7 +69,7 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         repository: getargv/getargv
         path: getargv
@@ -81,11 +80,11 @@ jobs:
     - name: Install libgetargv
       run: sudo make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         path: getargv.py
     - name: Set up Python 3
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: 3.x
         check-latest: true
@@ -132,5 +131,5 @@ jobs:
       # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
     steps:
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v5
     - uses: pypa/gh-action-pypi-publish@release/v1
