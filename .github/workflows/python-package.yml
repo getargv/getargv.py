@@ -16,10 +16,10 @@ jobs:
     strategy:
       matrix:
         python-version:
-          # - "3.10" # EOL: 2026-10
-          # - "3.11" # EOL: 2027-10
-          # - "3.12" # EOL: 2028-10
-          # - "3.13" # EOL: 2029-10
+          - "3.10" # EOL: 2026-10
+          - "3.11" # EOL: 2027-10
+          - "3.12" # EOL: 2028-10
+          - "3.13" # EOL: 2029-10
           - "3.14" # EOL: 2030-10
           - "system"
          # see supported python release schedule at https://devguide.python.org/versions/
@@ -44,7 +44,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         check-latest: true
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up system Python
       run: echo "PATH=/usr/bin:`/usr/bin/python3 -m site --user-base`/bin:$PATH" >> $GITHUB_ENV
       if: ${{ matrix.python-version == 'system' }}
     - name: Upgrade pip & Install deps
@@ -132,10 +132,7 @@ jobs:
       id-token: write
     steps:
     - uses: actions/download-artifact@v5
-      id: download
       with:
         name: dist
-    - run: ls -R  ${{ steps.download.outputs.download-path }}
+        path: dist
     - uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        packages-dir: ${{ steps.download.outputs.download-path }}/dist
