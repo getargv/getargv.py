@@ -132,6 +132,9 @@ jobs:
       id-token: write
     steps:
     - uses: actions/download-artifact@v5
+      id: download
       with:
         name: dist
     - uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        path: ${{ steps.download.outputs.download-path }}/dist
