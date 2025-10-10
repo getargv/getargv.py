@@ -5,6 +5,8 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#static-vs-dynamic-metadata
+
 [project]
 name = "getargv"
 version = "0.20"
