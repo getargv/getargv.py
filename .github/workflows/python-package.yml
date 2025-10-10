@@ -132,4 +132,6 @@ jobs:
       id-token: write
     steps:
     - uses: actions/download-artifact@v5
+      with:
+        name: dist
     - uses: pypa/gh-action-pypi-publish@release/v1
